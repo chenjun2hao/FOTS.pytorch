@@ -69,17 +69,12 @@ if __name__ == '__main__':
   test_path = os.path.realpath(args.test_folder)
   test_path = test_path + '/*.jpg'
   imagelist = glob.glob(test_path)
-  # videopath = '/home/yangna/文档/ocrtest.mp4'
-  # cap = cv2.VideoCapture(videopath)
-  # ret, im = cap.read()
-  # i = 0
+
 
   with torch.no_grad():
     for path in imagelist:
-    # while ret:
-      # path = '/home/yangna/deepblue/OCR/data/ICDAR2015/ch4_test_images/img_405.jpg'
+
       im = cv2.imread(path)
-      # ret, im = cap.read()
 
       im_resized, (ratio_h, ratio_w) = resize_image(im, scale_up=False)
       images = np.asarray([im_resized], dtype=np.float)
@@ -125,9 +120,9 @@ if __name__ == '__main__':
         pts  = box[0:8]
         pts = pts.reshape(4, -1)
         draw_box_points(im, pts, color=(0, 255, 0), thickness=1)
-      i += 1
+        
       cv2.imshow('img', im)
-      basename = os.path.basename('path/%.03d.jpg'%i)
+      basename = os.path.basename(path)
       cv2.imwrite(os.path.join(args.output, basename), im)
       cv2.waitKey(1000)
 
