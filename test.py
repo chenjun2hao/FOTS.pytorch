@@ -66,20 +66,20 @@ if __name__ == '__main__':
     print('Using cuda ...')
     net = net.cuda()
 
-  # test_path = os.path.realpath(args.test_folder)
-  # test_path = test_path + '/*.jpg'
-  # imagelist = glob.glob(test_path)
-  videopath = '/home/yangna/文档/ocrtest.mp4'
-  cap = cv2.VideoCapture(videopath)
-  ret, im = cap.read()
-  i = 0
+  test_path = os.path.realpath(args.test_folder)
+  test_path = test_path + '/*.jpg'
+  imagelist = glob.glob(test_path)
+  # videopath = '/home/yangna/文档/ocrtest.mp4'
+  # cap = cv2.VideoCapture(videopath)
+  # ret, im = cap.read()
+  # i = 0
 
   with torch.no_grad():
-    # for path in imagelist:
-    while ret:
+    for path in imagelist:
+    # while ret:
       # path = '/home/yangna/deepblue/OCR/data/ICDAR2015/ch4_test_images/img_405.jpg'
-      # im = cv2.imread(path)
-      ret, im = cap.read()
+      im = cv2.imread(path)
+      # ret, im = cap.read()
 
       im_resized, (ratio_h, ratio_w) = resize_image(im, scale_up=False)
       images = np.asarray([im_resized], dtype=np.float)

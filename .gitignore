@@ -28,5 +28,4 @@ _ext
 /data/*.py
 /weights/*.h5
 /weights/e2e-mlt.h5
-/data/ICDAR2015/
 
