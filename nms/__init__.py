@@ -12,6 +12,15 @@ def do_nms(segm_map, geo_map, angle_pred, poly_map, thres=0.3, thres2=0.2, segm_
     precision=10000
     from .adaptor import do_nms as nms_impl
     ret = np.array(nms_impl(segm_map, geo_map, angle_pred, poly_map, thres, thres2, segm_thresh), dtype='float32')
+    if ret.size == 0:
+        return np.zeros((0, 11), dtype='float32')
+    if ret.ndim == 0:
+        ret = ret.reshape(1, 1)
+    if ret.ndim == 1:
+        ret = ret.reshape(1, -1)
+    if ret.ndim == 2 and ret.shape[1] >= 5:
+        ret[:, 3] = np.maximum(ret[:, 3], 1e-4)
+        ret[:, 4] = np.maximum(ret[:, 4], 1e-4)
     if len(ret) > 0:
       ret[:,:8] /= precision
     return ret
